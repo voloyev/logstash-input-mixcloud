@@ -14,13 +14,15 @@ class LogStash::Inputs::Mixcloud < LogStash::Inputs::Base
 
   config :message, validate: :string, default: 'Hello World!'
   config :interval, validate: :number, default: 60
+  config :type_popular, validate: :string, defailt: 'popular'
+  # could be popular popular/hot new
 
   def register
     @host = Socket.gethostname
   end
 
   def message
-    @message = popular_songs(MIXCLOUD_API_URL, 'month')
+    @message = popular_songs(MIXCLOUD_API_URL, @type_popular)
     @message
   end
 
@@ -30,6 +32,7 @@ class LogStash::Inputs::Mixcloud < LogStash::Inputs::Base
       event = LogStash::Event.new('message' => message, 'host' => @host)
       decorate(event)
       queue << event
+      sleep @interval
       Stud.stoppable_sleep(@interval) { stop? }
     end
   end

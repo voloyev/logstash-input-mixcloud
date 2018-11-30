@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/voloyev/logstash-input-mixcloud.svg?branch=master)](https://travis-ci.org/voloyev/logstash-input-mixcloud)
+
+
 # Logstash Plugin
 
 This is a plugin for [Logstash](https://github.com/elastic/logstash).
