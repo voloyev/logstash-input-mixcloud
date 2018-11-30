@@ -1,43 +1,86 @@
-# LogstashInputMixcloud
+# Logstash Plugin
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/logstash_input_mixcloud`. To experiment with that code, run `bin/console` for an interactive prompt.
+This is a plugin for [Logstash](https://github.com/elastic/logstash).
 
-TODO: Delete this and the text above, and describe your gem
+It is fully free and fully open source. The license is Apache 2.0, meaning you are pretty much free to use it however you want in whatever way.
 
-## Installation
+## Documentation
 
-Add this line to your application's Gemfile:
+Logstash provides infrastructure to automatically generate documentation for this plugin. We use the asciidoc format to write documentation so any comments in the source code will be first converted into asciidoc and then into html. All plugin documentation are placed under one [central location](http://www.elastic.co/guide/en/logstash/current/).
 
-```ruby
-gem 'logstash_input_mixcloud'
+- For formatting code or config example, you can use the asciidoc `[source,ruby]` directive
+- For more asciidoc formatting tips, see the excellent reference here https://github.com/elastic/docs#asciidoc-guide
+
+## Need Help?
+
+Need help? Try #logstash on freenode IRC or the https://discuss.elastic.co/c/logstash discussion forum.
+
+## Developing
+
+### 1. Plugin Developement and Testing
+
+#### Code
+- To get started, you'll need JRuby with the Bundler gem installed.
+
+- Create a new plugin or clone and existing from the GitHub [logstash-plugins](https://github.com/logstash-plugins) organization. We also provide [example plugins](https://github.com/logstash-plugins?query=example).
+
+- Install dependencies
+```sh
+bundle install
 ```
 
-And then execute:
+#### Test
 
-    $ bundle
+- Update your dependencies
 
-Or install it yourself as:
+```sh
+bundle install
+```
 
-    $ gem install logstash_input_mixcloud
+- Run tests
 
-## Usage
+```sh
+bundle exec rspec
+```
 
-TODO: Write usage instructions here
+### 2. Running your unpublished Plugin in Logstash
 
-## Development
+#### 2.1 Run in a local Logstash clone
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+- Edit Logstash `Gemfile` and add the local plugin path, for example:
+```ruby
+gem "logstash-filter-awesome", :path => "/your/local/logstash-filter-awesome"
+```
+- Install plugin
+```sh
+bin/logstash-plugin install --no-verify
+```
+- Run Logstash with your plugin
+```sh
+bin/logstash -e 'filter {awesome {}}'
+```
+At this point any modifications to the plugin code will be applied to this local Logstash setup. After modifying the plugin, simply rerun Logstash.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+#### 2.2 Run in an installed Logstash
+
+You can use the same **2.1** method to run your plugin in an installed Logstash by editing its `Gemfile` and pointing the `:path` to your local plugin development directory or you can build the gem and install it using:
+
+- Build your plugin gem
+```sh
+gem build logstash-filter-awesome.gemspec
+```
+- Install the plugin from the Logstash home
+```sh
+bin/logstash-plugin install /your/local/plugin/logstash-filter-awesome.gem
+```
+- Start Logstash and proceed to test the plugin
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/logstash_input_mixcloud. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+All contributions are welcome: ideas, patches, documentation, bug reports, complaints, and even something you drew up on a napkin.
 
-## License
+Programming is not a required skill. Whatever you've seen about open source and maintainers or community members  saying "send patches or die" - you will not see that here.
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+It is more important to the community that you are able to contribute.
 
-## Code of Conduct
-
-Everyone interacting in the LogstashInputMixcloud project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/logstash_input_mixcloud/blob/master/CODE_OF_CONDUCT.md).
+For more information about contributing, see the [CONTRIBUTING](https://github.com/elastic/logstash/blob/master/CONTRIBUTING.md) file.
