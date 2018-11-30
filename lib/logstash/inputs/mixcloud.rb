@@ -13,7 +13,7 @@ class LogStash::Inputs::Mixcloud < LogStash::Inputs::Base
   default :codec, 'plain'
 
   config :message, validate: :string, default: 'Hello World!'
-  config :interval, validate: :number, default: 60
+  config :interval, validate: :number, default: 1
   config :type_popular, validate: :string, defailt: 'popular'
   # could be popular popular/hot new
 
