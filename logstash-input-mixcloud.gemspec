@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'logstash-input-mixcloud'
-  s.version       = '0.1.2'
+  s.version       = '0.1.3'
   s.licenses      = ['Apache-2.0']
   s.summary       = 'Input plugin for logstash.'
   s.description   = 'It takes data from mixcloud and put it in place was configured by logstash.'
@@ -9,14 +9,12 @@ Gem::Specification.new do |s|
   s.email         = 'voloyev@vivaldi.net'
   s.require_paths = ['lib']
 
-  # Files
   s.files = Dir['lib/**/*', 'spec/**/*', 'vendor/**/*',
                 '*.gemspec','*.md', 'CONTRIBUTORS',
                 'Gemfile', 'LICENSE', 'NOTICE.TXT']
-  # Tests
+
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
 
-  # Special flag to let us know this is actually a logstash plugin
   s.metadata = { 'logstash_plugin' => 'true', 'logstash_group' => 'input' }
 
   # Gem dependencies
